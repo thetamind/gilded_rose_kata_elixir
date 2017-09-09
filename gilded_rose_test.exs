@@ -32,12 +32,6 @@ defmodule GildedRoseTest do
       next_item = GildedRose.update_item(item)
       assert next_item.quality == 0
     end
-
-    test "quality never becomes more than 50" do
-      item = aged_brie(quality: 50)
-      next_item = GildedRose.update_item(item)
-      assert next_item.quality == 50
-    end
   end
 
   describe "Aged Brie" do
@@ -51,6 +45,12 @@ defmodule GildedRoseTest do
       item = aged_brie(sell_in: -5, quality: 30)
       next_item = GildedRose.update_item(item)
       assert next_item.quality == 32
+    end
+
+    test "quality never becomes more than 50" do
+      item = aged_brie(quality: 50)
+      next_item = GildedRose.update_item(item)
+      assert next_item.quality == 50
     end
   end
 
