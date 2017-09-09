@@ -41,23 +41,11 @@ defmodule GildedRose do
     %Item{item | sell_in: sell_in - 1, quality: min(item.quality + 1, 50)}
   end
 
-  def update_item(item) do
-    item = if item.quality > 0 do
-      %{item | quality: item.quality - 1}
-    else
-      item
-    end
+  def update_item(%Item{sell_in: sell_in} = item) when sell_in <= 0 do
+    %Item{item | sell_in: sell_in - 1, quality: max(item.quality - 2, 0)}
+  end
 
-    item = %{item | sell_in: item.sell_in - 1}
-
-    cond do
-      item.sell_in < 0 ->
-        cond do
-          item.quality > 0 ->
-            %{item | quality: item.quality - 1}
-          true -> item
-        end
-      true -> item
-    end
+  def update_item(%Item{} = item) do
+    %Item{item | sell_in: item.sell_in - 1, quality: max(item.quality - 1, 0)}
   end
 end
