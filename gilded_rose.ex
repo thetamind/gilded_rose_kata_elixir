@@ -41,6 +41,14 @@ defmodule GildedRose do
     item |> age() |> improve(1)
   end
 
+  def update_item(%Item{name: "Conjured Mana Cake", sell_in: sell_in} = item) when sell_in <= 0 do
+    item |> age() |> degrade(4)
+  end
+
+  def update_item(%Item{name: "Conjured Mana Cake"} = item) do
+    item |> age() |> degrade(2)
+  end
+
   def update_item(%Item{sell_in: sell_in} = item) when sell_in <= 0 do
     item |> age() |> degrade(2)
   end
