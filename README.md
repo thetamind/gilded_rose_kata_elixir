@@ -21,10 +21,10 @@ item |> age() |> degrade(4)
 Execute the tests:
 
 ```
-$ elixir guilded_rose_test.exs
+$ elixir gilded_rose_test.exs
 ```
 
-Unit tests were written based on the specification in the [requirements document](guilded_rose_requirements.txt). They are not exhaustive. For example, the minimum quality limit is only checked for generic items.
+Unit tests were written based on the specification in the [requirements document](gilded_rose_requirements.txt). They are not exhaustive. For example, the minimum quality limit is only checked for generic items.
 
 There is one acceptance test matching the expected output provided for [TextTest][texttest]. Rather than attempt to install TextTest I wrote a [simple driver](gilded_rose_driver.ex) that generates the report.
 
