@@ -22,11 +22,11 @@ defmodule GildedRose do
   end
 
   def update_item(%Item{name: "Sulfuras, Hand of Ragnaros"} = item) do
-    item
+    item |> quality(80)
   end
 
   def update_item(%Item{name: @backstage, sell_in: sell_in} = item) when sell_in <= 0 do
-    %Item{item | sell_in: sell_in - 1, quality: 0}
+    item |> age() |> quality(0)
   end
 
   def update_item(%Item{name: @backstage, sell_in: sell_in} = item) when sell_in <= 5 do
@@ -69,5 +69,9 @@ defmodule GildedRose do
 
   defp improve(%Item{} = item, rate) do
     %Item{item | quality: min(item.quality + rate, 50)}
+  end
+
+  defp quality(%Item{} = item, quality) do
+    %Item{item | quality: quality}
   end
 end
