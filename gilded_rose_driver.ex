@@ -18,11 +18,11 @@ defmodule GildedRose.Driver do
   end
 
   def age_items(items, days) do
-    Enum.reduce(0..(days - 1), [items], fn _day, [items | tail] ->
-      next = GildedRose.update_quality(items)
-      [next, items | tail]
+    aged_items = Stream.unfold(items, fn items ->
+      {items, GildedRose.update_quality(items)}
     end)
-    |> Enum.reverse()
+
+    Enum.zip(0..days, aged_items)
   end
 
   def report_with_greeting(aged_items) do
@@ -31,8 +31,7 @@ defmodule GildedRose.Driver do
 
   def report(aged_items) do
     aged_items
-    |> Enum.with_index(0)
-    |> Enum.map(fn {items, day} ->
+    |> Enum.map(fn {day, items} ->
       report_day(items, day)
     end)
     |> Enum.join("\n\n")
